@@ -1,0 +1,80 @@
+#archiveGrid .archive-delete-link {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #c00;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+  transition: color 0.15s;
+}
+#archiveGrid .archive-delete-link:hover {
+  color: #ff3f28;
+}
+/* Archive top bar text hover motion */
+.archive-topbar-link {
+  transition: transform 0.2s ease;
+}
+.archive-topbar-link:hover {
+  transform: rotate(-8deg);
+}
+/* Archive page: Back button and header text styles */
+#archiveView .ui-box-wrapper {
+  margin-bottom: 18px;
+}
+#archiveView .ui-box {
+  border: 1px solid #000;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s;
+}
+#archiveView .ui-box-content p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  color: #000;
+  margin: 0;
+  padding: 8px 18px;
+  text-align: center;
+}
+#archiveView .ui-box:hover {
+  background: #000;
+}
+#archiveView .ui-box:hover .ui-box-content p {
+  color: #fff;
+}
+#archiveView .text-block .text-content p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+/* Archive view specific styles (optional, minimal) */
+#archiveGrid {
+  width: 100%;
+  margin-top: 16px;
+}
+#archiveGrid .archive-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18px;
+}
+#archiveGrid .archive-item img {
+  max-width: 100%;
+  max-height: 120px;
+  border: 1px solid #ccc;
+  background: #fff;
+  margin-bottom: 4px;
+}
+#archiveGrid .archive-item .archive-timestamp {
+  font-size: 11px;
+  color: #666;
+  text-align: center;
+}

@@ -1,0 +1,1157 @@
+.motion-adjustments-box.motion-hover {
+  background-color: #ff3f28 !important;
+}
+.motion-adjustments-box.motion-hover,
+.motion-adjustments-box.motion-hover * {
+  color: #fff !important;
+}
+/* Highlight Text Mode bar when hovering the entire segmented-toggle-wrapper (the whole rectangle) */
+.segmented-toggle-wrapper:hover ~ .output-text-box,
+.segmented-toggle-wrapper:focus-within ~ .output-text-box {
+  background-color: #ff3f28 !important;
+}
+.segmented-toggle-wrapper:hover ~ .output-text-box,
+.segmented-toggle-wrapper:hover ~ .output-text-box *,
+.segmented-toggle-wrapper:focus-within ~ .output-text-box,
+.segmented-toggle-wrapper:focus-within ~ .output-text-box * {
+  color: #fff !important;
+}
+/* ============================================
+   RESET AND BASE STYLES
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  color: #000;
+  font-family: 'Source Serif 4', serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.2;
+  overflow: hidden;
+}
+
+:root {
+  --left: 20%;
+  --center: 40%;
+  --right: 40%;
+  --handle-width: 1px;
+}
+
+/* ============================================
+   TOP AREA
+   Spans 100% width, no background color
+   Contains only text
+   ============================================ */
+
+.top-area {
+  width: 100%;
+  height: 40px;
+  padding: 0px 10px;
+  display: grid;
+  grid-template-columns: var(--left) var(--handle-width) var(--center) var(--handle-width) var(--right);
+  align-items: center;
+  background-color: transparent;
+  border-bottom: 1px solid #000000;
+  /* Directly touches columns below with no gap */
+}
+
+.top-area p {
+  margin: 0;
+  max-width: 100%;
+}
+
+.top-left {
+  grid-column: 1 / 4;
+  display: flex;
+  align-items: center;
+}
+
+.top-archive {
+  grid-column: 5;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.top-archive p {
+  transition: transform 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.top-archive:hover p {
+  transform: rotate(-8deg);
+}
+
+/* ============================================
+   COLUMNS CONTAINER
+   Flexbox layout for three resizable columns
+   ============================================ */
+
+.columns-container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 40px); /* Account for top-area height */
+  flex-wrap: nowrap;
+  /* Visual closure at the bottom */
+}
+
+/* ============================================
+   COLUMN STYLING
+   Each column has a subtle border
+   Widths defined by CSS custom properties above
+   ============================================ */
+
+.column {
+  height: 100%;
+  border-right: 1px solid #000000; /* slightly lighter for a thinner visual line */
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Allow for future content inside */
+}
+
+/* Column-specific widths using custom properties */
+.column:nth-child(1) {
+  flex: 0 0 var(--left);
+}
+.column:nth-child(3) {
+  flex: 0 0 var(--center);
+}
+.column:nth-child(5) {
+  flex: 0 0 var(--right);
+}
+/* Remove right border from last column */
+.column:last-of-type {
+  border-right: none;
+}
+
+.column-content {
+  padding: 10px 10px;
+  /* Content area for future use */
+}
+
+#svg-canvas {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#canvas-rectangle {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  margin-left: 0;
+  height: 14px;
+  background-color: #f1f1f1;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Serif 4', serif;
+  font-size: clamp(6px, 1.2vw, 12px);
+  line-height: 1.2;
+  color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 5px;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out, transform 0.25s ease-out;
+  z-index: 0;
+}
+
+#canvas-rectangle:hover {
+  background-color: #000000;
+  color: #ffffff;
+  transform: translateY(-50%) rotate(-8deg);
+}
+
+/* ============================================
+   EDITORIAL TEXT BLOCK
+   Left column typography styling
+   Aligns with header, fixed sizing, no responsiveness
+   ============================================ */
+
+.editorial-text {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  padding: 0;
+}
+
+.text-block {
+  padding: 10px 10px 10px 16px;
+  border-left: 6px solid #000000;
+  margin-bottom: 14px;
+}
+
+/* Remove the left border for the right column while keeping text positioning */
+.right-column-header .text-block {
+  border-left: none;
+}
+
+/* Black rectangle for input text prompt in right column */
+.input-text-box {
+  width: 100%;
+  height: 14px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 1px;
+}
+
+.input-text-box p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #ffffff;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Active state when typing */
+.input-text-box.active {
+  background-color: #ff3f28;
+}
+
+/* Output text box below textarea */
+.output-text-box {
+  width: 100%;
+  margin-top: 42px !important;
+  background-color: #000000;
+  padding: 0 20px;
+}
+
+.input-text-box.active p {
+  color: #000000;
+}
+
+/* Text input wrapper and field matching left column UI boxes */
+.text-input-wrapper {
+  margin-top: 8px;
+  padding: 0 20px;
+}
+
+.text-input-field {
+  width: 100%;
+  border: 1px solid #000000;
+  background-color: transparent;
+  padding: 5px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  resize: vertical;
+  min-height: 40px;
+  box-sizing: border-box;
+}
+
+.text-input-field:focus {
+  outline: none;
+  background-color: #f9f9f9;
+}
+
+.text-block:last-child {
+  margin-bottom: 0;
+}
+.text-block p {
+  margin: 0 0 12px 0;
+}
+.text-block p:last-child {
+  margin-bottom: 0;
+}
+
+.text-content {
+  display: block;
+}
+
+.how-it-works p {
+  margin-bottom: 1.2px;
+}
+
+.how-it-works ol {
+  margin: 0;
+  padding-left: 12px;
+}
+.how-it-works li {
+  margin-bottom: 2px;
+}
+.how-it-works li:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   UI BOXES (LEFT COLUMN BOTTOM)
+   Three stacked rectangles with black markers
+   ============================================ */
+
+.ui-box-container {
+  margin-top: 20px;
+  padding: 0 10px 0 0;
+}
+
+.ui-box-wrapper {
+  border-left: 6px solid #000000;
+  padding-left: 16px;
+  margin-bottom: 8px;
+}
+
+.ui-box-wrapper:last-child {
+  margin-bottom: 20px;
+}
+
+.ui-box {
+  border: 1px solid #000000;
+  margin-bottom: 0;
+  background-color: transparent;
+  transition: background-color 0.25s ease-out;
+}
+
+.ui-box:hover {
+  background-color: #000000;
+}
+
+.ui-box-content {
+  padding: 10px 10px 10px 10px;
+}
+
+.ui-box-content p {
+  margin: 0;
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  transition: color 0.25s ease-out, transform 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.ui-box:hover .ui-box-content p {
+  color: #ffffff;
+  transform: rotate(-8deg);
+}
+
+/* ============================================
+   RIGHT COLUMN HEADER
+   Headline with full-width black underline
+   ============================================ */
+
+.right-column-header {
+  padding: 0;
+  padding-top: 10px;
+  /* Push headline down from top of column */
+}
+
+.input-headline {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.0;
+  /* Tight line-height to bring text closer to baseline */
+  color: white;
+  margin: 0;
+  padding: 10px 10px 2px 10px;
+  /* Minimal bottom padding to preserve descenders */
+  background-color: #000000;
+}
+
+.headline-underline {
+  width: 100%;
+  height: 2px;
+  /* Derived from font-size (12px / 6 = 2px) - thin typographic strip */
+  background-color: #000000;
+  margin: -1px 0 0 0;
+  /* Negative top margin pulls underline up to touch text baseline */
+}
+
+/* Hover rotation target */
+.text-content.tilt-target {
+  transition: transform 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.text-content.tilt-target:hover {
+  transform: rotate(-8deg);
+}
+
+/* ============================================
+   DRAG HANDLES
+   Thin vertical lines between columns
+   Minimal and visually quiet
+   ============================================ */
+
+.drag-handle {
+  width: 1px;
+  height: 100%;
+  position: relative;
+  background-color: #d0d0d0;
+  cursor: col-resize;
+  z-index: 2;
+}
+
+/* Hide scrollbars while preserving scroll behavior */
+.column::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.column {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Small black box centered on each handle for grip */
+.drag-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 12px;
+  background-color: #000000;
+  transform: translate(-50%, -50%);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+/* ============================================
+   SEGMENTED TOGGLE CONTROL
+   Two-option slider matching text input style
+   ============================================ */
+
+.segmented-toggle-wrapper {
+  margin-top: 8px;
+  padding: 0 20px;
+}
+
+.typography-adjustments-box {
+  width: 100%;
+  height: 14px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 42px;
+}
+
+.shape-adjustments-box {
+  width: 100%;
+  height: 14px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 48px ;
+}
+
+.motion-adjustments-box {
+  width: 100%;
+  height: 14px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 48px !important;
+}
+
+/* Font label without black box */
+.font-label {
+  padding: 0 20px;
+  margin-top: 8px;
+}
+
+.font-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+}
+
+/* Font selection container */
+.font-selection-container {
+  margin-top: 8px;
+  padding: 0 20px;
+}
+
+/* Font row - divided into two columns */
+.font-row {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #000000;
+  display: flex;
+  align-items: stretch;
+  background-color: #ffffff;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.font-name-column {
+  flex: 0 0 calc(50% - 0.5px);
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100%;
+  background-color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  border: none;
+}
+
+.font-name-column p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+}
+
+.font-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-top: none;
+  width: 100%;
+  z-index: 1000;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.font-dropdown-menu.active {
+  display: block;
+}
+
+.font-option {
+  padding: 8px 10px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  color: #000000;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.font-option:last-child {
+  border-bottom: none;
+}
+
+.font-option:hover {
+  background-color: #f0f0f0;
+}
+
+.font-divider {
+  width: 1px;
+  height: 100%;
+  background-color: #000000;
+}
+
+.font-size-column {
+  flex: 0 0 calc(50% - 0.5px);
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100%;
+  position: relative;
+}
+
+.font-size-input {
+  flex: 1;
+  border: none;
+  background-color: transparent;
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  -moz-appearance: textfield;
+}
+
+.font-size-input::-webkit-outer-spin-button,
+.font-size-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
+}
+
+.font-size-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-left: 5px;
+}
+
+.font-size-btn {
+  width: px;
+  height: 8px;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 6px;
+  padding: 0;
+  cursor: pointer;
+  .shape-adjustments-box.shape-hover {
+    background-color: #ff3f28 !important;
+    color: #fff !important;
+  }
+
+  .motion-adjustments-box.motion-hover {
+    background-color: #ff3f28 !important;
+    color: #fff !important;
+  }
+  justify-content: center;
+}
+
+.font-size-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.font-size-btn.up {
+  border-bottom: none;
+}
+
+/* Font upload row */
+.font-upload-row {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #000000;
+  border-top: none;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0 10px;
+  margin-top: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.font-upload-row:hover {
+  background-color: #000000;
+}
+
+.font-upload-row p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.font-upload-row:hover p {
+  transform: rotate(-8deg);
+  color: #ffffff;
+}
+
+/* Font weight label */
+.font-weight-label {
+  padding: 0 20px;
+  margin-top: 8px;
+}
+
+.font-weight-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.font-weight-label.active p {
+  transform: rotate(-8deg);
+  color: #ff3f28;
+}
+
+/* Line height label */
+.line-height-label {
+  padding: 0 20px;
+  margin-top: 8px;
+}
+
+.line-height-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.line-height-label.active p {
+  transform: rotate(-8deg);
+  color: #ff3f28;
+}
+
+/* Line packing label */
+.line-packing-label {
+  padding: 0 20px;
+  margin-top: 28px;
+}
+
+.line-packing-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.line-packing-label.active p {
+  transform: rotate(-8deg);
+  color: #ff3f28;
+}
+
+/* Tracking label */
+.tracking-label {
+  padding: 0 20px;
+  margin-top: 28px;
+}
+
+.tracking-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.tracking-label.active p {
+  transform: rotate(-8deg);
+  color: #ff3f28;
+}
+
+/* Scale label */
+.scale-label {
+  padding: 0 20px;
+  margin-top: 8px;
+}
+
+.scale-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.scale-label.active p {
+  transform: rotate(-8deg);
+  color: #ff3f28;
+}
+
+/* Rotation label */
+.rotation-label {
+  padding: 0 20px;
+  margin-top: 28px;
+}
+
+.rotation-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.rotation-label.active p {
+  transform: rotate(-8deg);
+  color: #ff3f28;
+}
+
+/* Motion label */
+.motion-label {
+  padding: 0 20px;
+  margin-top: 8px;
+}
+
+.motion-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+}
+
+/* Motion toggle wrapper */
+.motion-toggle-wrapper {
+  margin-top: 8px;
+  padding: 0 20px;
+}
+
+.motion-toggle {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #000000;
+  background-color: transparent;
+  display: flex;
+  overflow: hidden;
+}
+
+.motion-toggle-slider {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  background-color: #000000;
+  transition: transform 0.15s linear;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.motion-toggle-option {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  cursor: pointer;
+  z-index: 1;
+  user-select: none;
+  overflow: hidden;
+}
+
+.motion-toggle-option span {
+  font-family: 'Source Serif 4', serif;
+  font-size: clamp(8px, 1.2vw, 12px);
+  font-weight: 400;
+  color: #000000;
+  transition: color 0.15s linear;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.motion-toggle-option.active span {
+  color: #ffffff;
+}
+
+/* Speed label */
+.speed-label {
+  padding: 0 20px;
+  margin-top: 28px;
+}
+
+.speed-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.speed-label.active p {
+  transform: rotate(-8deg);
+  color: #ff3f28;
+}
+
+/* Amount label */
+.amount-label {
+  padding: 0 20px;
+  margin-top: 28px;
+}
+
+.amount-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.amount-label.active p {
+  transform: rotate(-8deg);
+  color: #ff3f28;
+}
+
+/* Mode label */
+.mode-label {
+  padding: 0 20px;
+  margin-top: 28px;
+}
+
+.mode-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+}
+
+/* Mode selection container */
+.mode-selection-container {
+  margin-top: 8px;
+  margin-bottom: 40px;
+  padding: 0 20px;
+  display: flex;
+  gap: 0;
+  width: 100%;
+}
+
+.mode-option {
+  flex: 1;
+  height: 40px;
+  border: 1px solid #000000;
+  border-right: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.25s ease-out;
+}
+
+.mode-option:last-child {
+  border-right: 1px solid #000000;
+}
+
+.mode-option p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+  transition: color 0.25s ease-out, transform 0.25s ease-out;
+  transform-origin: center left;
+}
+
+.mode-option.active {
+  background-color: #000000;
+}
+
+.mode-option.active p {
+  color: #ffffff;
+}
+
+.mode-option:hover:not(.active) {
+  background-color: #000000;
+}
+
+.mode-option:hover:not(.active) p {
+  color: #ffffff;
+  transform: rotate(-8deg);
+}
+
+/* Transformation label */
+.transformation-label {
+  padding: 0 20px;
+  margin-top: 40px;
+}
+
+.transformation-label p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0;
+}
+
+/* TypeFlowSlider - Custom reusable slider component */
+.slider-wrapper {
+  padding: 0 20px;
+  margin-top: 8px;
+}
+
+.typeflow-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: #000000;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.25s ease-out;
+}
+
+.typeflow-slider:active,
+.typeflow-slider:focus {
+  background: #ff3f28;
+}
+
+/* WebKit browsers (Chrome, Safari, Edge) */
+.typeflow-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;i
+  width: 5px;
+  height: 35px;
+  background: #000000;
+  cursor: pointer;
+  border: none;
+  border-radius: 0;  transition: transform 0.25s ease-out, background 0.25s ease-out;
+}
+
+.typeflow-slider:active::-webkit-slider-thumb {
+  transform: rotate(-8deg);
+  background: #ff3f28;
+}
+
+/* Firefox */
+.typeflow-slider::-moz-range-thumb {
+  width: 5px;
+  height: 35px;
+  background: #000000;
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+  transition: transform 0.25s ease-out, background 0.25s ease-out;
+}
+
+.typeflow-slider:active::-moz-range-thumb {
+  transform: rotate(-8deg);
+  background: #ff3f28;
+}
+
+/* Firefox track */
+.typeflow-slider::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  background: #000000;
+  border: none;
+  border-radius: 0;
+  transition: background 0.25s ease-out;
+}
+
+.typeflow-slider:active::-moz-range-track {
+  background: #ff3f28;
+}
+
+.typeflow-slider:active::-moz-range-track {
+  background: #ff3f28;
+}
+
+.segmented-toggle {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #000000;
+  background-color: transparent;
+  display: flex;
+  overflow: hidden;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 50%;
+  height: 75%;
+  background-color: #000000;
+  transition: transform 0.15s linear;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.toggle-option {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  cursor: pointer;
+  z-index: 1;
+  user-select: none;
+  overflow: hidden;
+}
+
+.toggle-option span {
+  font-family: 'Source Serif 4', serif;
+  font-size: clamp(8px, 1.2vw, 12px);
+  font-weight: 400;
+  color: #000000;
+  transition: color 0.15s linear;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.toggle-option.active span {
+  color: #ffffff;
+}
+@media (max-width: 768px) {
+  .top-area {
+    padding: 30px 20px;
+  }
+  .column-content {
+    padding: 30px 20px;
+  }
+}
+
+
+
+
+
+/* ============================================
+   SHAPE SELECTION STYLING
+   ============================================ */
+
+.selected-shape {
+  stroke: #ff3f28 !important;
+  stroke-width: 1px !important;
+}
+
+.output-text-box.text-mode-hover {
+  background-color: #ff3f28 !important;
+}
+.output-text-box.text-mode-hover,
+.output-text-box.text-mode-hover * {
+  color: #fff !important;
+}
+
+.typography-adjustments-box.typography-hover {
+  background-color: #ff3f28 !important;
+}
+.typography-adjustments-box.typography-hover,
+.typography-adjustments-box.typography-hover * {
+  color: #fff !important;
+}
+
+.shape-adjustments-box.shape-hover {
+  background-color: #ff3f28 !important;
+}
+.shape-adjustments-box.shape-hover,
+.shape-adjustments-box.shape-hover * {
+  color: #fff !important;
+}

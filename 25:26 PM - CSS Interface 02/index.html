@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typeflow-T-Area</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="archive.css">
+</head>
+<body>
+  
+  <!-- TOP AREA: Simple text header, no background color -->
+
+  <div class="top-area">
+    <div class="top-left">
+      <p>Typeflow-T-Area is an area-based typesetting Tool. Where language takes shape and text becomes form.</p>
+    </div>
+    <div class="top-archive" id="archive-link" style="cursor:pointer;">
+      <p>■ Archive</p>
+    </div>
+  </div>
+
+  <div id="editorView">
+    <div class="columns-container">
+      <!-- COLUMN 1 (LEFT) -->
+      <div class="column" style="flex: 0 0 20%">
+        <div class="column-content editorial-text">
+          <div class="text-block">
+            <div class="text-content tilt-target">
+              <p>Typography is the art and technique of arranging type to make written language legible, readable, and visually appealing. It involves selecting typefaces, point sizes, line spacing, letter spacing, and margins—all essential elements that work together to create a coherent visual hierarchy.</p>
+              <p>In the context of editorial design, typography serves as both a functional and aesthetic tool. The careful arrangement of text not only ensures that content is easy to read but also guides the reader's attention through the material. Good typography respects the content it presents and creates an intuitive experience for the audience.</p>
+              <p>Typeflow-T-Area represents a modern approach to typographic layout where language truly takes shape. It allows designers and writers to explore how text can become form, transforming static words into dynamic visual compositions. This tool bridges the gap between traditional typography and digital possibility.</p>
+            </div>
+          </div>
+          <div class="text-block how-it-works">
+            <div class="text-content tilt-target">
+              <p>How it works:</p>
+              <ol>
+                <li>Import an SVG file</li>
+                <li>Click a shape to select it</li>
+                <li>Type text in the right panel</li>
+                <li>Adjust typography settings</li>
+                <li>Play around</li>
+                <li>Export your design</li>
+                <li>Done :-).</li>
+              </ol>
+            </div>
+          </div>
+          <div class="ui-box-container">
+            <div class="ui-box-wrapper">
+              <div class="ui-box" id="import-svg-btn">
+                <div class="ui-box-content">
+                  <p>Import SVG</p>
+                </div>
+              </div>
+            </div>
+            <div class="ui-box-wrapper">
+              <div class="ui-box" id="clear-canvas-btn">
+                <div class="ui-box-content">
+                  <p>Clear Canvas</p>
+                </div>
+              </div>
+            </div>
+            <div class="ui-box-wrapper">
+              <div class="ui-box" id="export-svg-btn">
+                <div class="ui-box-content">
+                  <p>Export Design</p>
+                </div>
+              </div>
+            </div>
+            <div class="ui-box-wrapper">
+              <div class="ui-box" id="save-archive-btn">
+                <div class="ui-box-content">
+                  <p>Save to Archive</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input type="file" id="svg-file-input" accept=".svg" style="display: none;">
+        </div>
+      </div>
+      <!-- DRAG HANDLE between column 1 and 2 -->
+      <div class="drag-handle" data-resize="between-1-2"></div>
+      <!-- COLUMN 2 -->
+      <div class="column" style="flex: 0 0 40%">
+        <div class="column-content" style="position: relative;">
+          <div id="canvas-rectangle">Drop an SVG here or click to browse (.svg only!)</div>
+          <div id="svg-canvas"></div>
+        </div>
+      </div>
+      <!-- DRAG HANDLE between column 2 and 3 -->
+      <div class="drag-handle" data-resize="between-2-3"></div>
+      <!-- COLUMN 3 (RIGHT) -->
+      <div class="column" style="flex: 0 0 40%">
+        <div class="column-content editorial-text right-column-header">
+          <div class="input-text-box">
+            <p>Type your Text here</p>
+          </div>
+          <div class="text-input-wrapper">
+            <textarea class="text-input-field" placeholder="Start typing..."></textarea>
+          </div>
+          <div class="input-text-box output-text-box">
+            <p>Text Mode</p>
+          </div>
+          <div class="segmented-toggle-wrapper">
+            <div class="segmented-toggle">
+              <div class="toggle-slider"></div>
+              <div class="toggle-option" data-value="fill">
+                <span>Text fill inside</span>
+              </div>
+              <div class="toggle-option active" data-value="outline">
+                <span>Text on Outline</span>
+              </div>
+            </div>
+          </div>
+          <div class="font-and-slider-area">
+            <div class="input-text-box typography-adjustments-box">
+              <p>Typography Adjustments</p>
+            </div>
+            <div class="font-label">
+              <p>■ Font</p>
+            </div>
+            <div class="font-selection-container">
+              <div class="font-row">
+                <div class="font-name-column" id="font-name-button">
+                  <p>Inter</p>
+                  <div class="font-dropdown-menu" id="font-dropdown-menu">
+                    <div class="font-option" data-font="Inter">Inter</div>
+                    <div class="font-option" data-font="Georgia">Georgia</div>
+                    <div class="font-option" data-font="Times New Roman">Times New Roman</div>
+                    <div class="font-option" data-font="Arial">Arial</div>
+                    <div class="font-option" data-font="Courier New">Courier New</div>
+                  </div>
+                </div>
+                <div class="font-divider"></div>
+                <div class="font-size-column">
+                  <input type="number" class="font-size-input" id="font-size-input" value="12" min="8" max="72">
+                  <div class="font-size-controls">
+                    <button class="font-size-btn up" id="font-size-up">▲</button>
+                    <button class="font-size-btn down" id="font-size-down">▼</button>
+                  </div>
+                </div>
+              </div>
+              <div class="font-upload-row" id="font-upload-button">
+                <p>Upload your own Font</p>
+                <input type="file" id="font-file-input" accept=".ttf,.otf,.woff,.woff2" style="display: none;">
+              </div>
+            </div>
+            <div class="font-weight-label">
+              <p>Font Weight</p>
+            </div>
+            <div class="slider-wrapper">
+              <input type="range" class="typeflow-slider" id="font-weight-slider" min="100" max="900" step="1" value="500">
+            </div>
+            <div class="transformation-label">
+              <p>■ Transformation</p>
+            </div>
+            <div class="line-height-label">
+              <p>Line height</p>
+            </div>
+            <div class="slider-wrapper">
+              <input type="range" class="typeflow-slider" id="line-height-slider" min="0.5" max="3" step="0.1" value="1.75">
+            </div>
+            <div class="line-packing-label">
+              <p>Line packing</p>
+            </div>
+            <div class="slider-wrapper">
+              <input type="range" class="typeflow-slider" id="line-packing-slider" min="0" max="100" step="1" value="50">
+            </div>
+            <div class="tracking-label">
+              <p>Tracking</p>
+            </div>
+            <div class="slider-wrapper">
+              <input type="range" class="typeflow-slider" id="tracking-slider" min="-200" max="200" step="1" value="0">
+            </div>
+          </div>
+          <div class="input-text-box shape-adjustments-box">
+            <p>Shape Adjustment</p>
+          </div>
+          <div class="scale-label">
+            <p>Scale</p>
+          </div>
+          <div class="slider-wrapper">
+            <input type="range" class="typeflow-slider" id="scale-slider" min="0.1" max="3" step="0.1" value="1">
+          </div>
+          <div class="rotation-label">
+            <p>Rotation</p>
+          </div>
+          <div class="slider-wrapper">
+            <input type="range" class="typeflow-slider" id="rotation-slider" min="0" max="360" step="1" value="0">
+          </div>
+          <div class="input-text-box motion-adjustments-box">
+            <p>Motion Adjustment</p>
+          </div>
+          <div class="motion-label">
+            <p>■ Play Motion</p>
+          </div>
+          <div class="motion-toggle-wrapper">
+            <div class="motion-toggle">
+              <div class="motion-toggle-slider"></div>
+              <div class="motion-toggle-option active" data-value="on">
+                <span>On</span>
+              </div>
+              <div class="motion-toggle-option" data-value="off">
+                <span>Off</span>
+              </div>
+            </div>
+          </div>
+          <div class="speed-label">
+            <p>Speed</p>
+          </div>
+          <div class="slider-wrapper">
+            <input type="range" class="typeflow-slider" id="speed-slider" min="0" max="100" step="1" value="50">
+          </div>
+          <div class="amount-label">
+            <p>Amount</p>
+          </div>
+          <div class="slider-wrapper">
+            <input type="range" class="typeflow-slider" id="amount-slider" min="0" max="100" step="1" value="50">
+          </div>
+          <div class="mode-label">
+            <p>■ Choose your Mode</p>
+          </div>
+          <div class="mode-selection-container">
+            <div class="mode-option active" data-mode="wave">
+              <p>Wave</p>
+            </div>
+            <div class="mode-option" data-mode="pulse">
+              <p>Pulse</p>
+            </div>
+            <div class="mode-option" data-mode="stretch">
+              <p>Stretch</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="archiveView" style="display:none;">
+    <div class="columns-container">
+      <div class="column" style="flex: 1 1 100%; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+          <!-- Back to Editor button and Archive headline removed as requested -->
+          <div id="archiveGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="archive.js"></script>
+</body>
+</html>
